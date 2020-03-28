@@ -1,0 +1,11 @@
+body{
+   height: 100vh;
+}
+
+.uk-height-1-1{
+  height: 100vh !important;
+}
+
+.uk-spinner circle{
+  color: #a5d6a7 !important;
+}

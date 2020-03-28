@@ -1,0 +1,16 @@
+<template>
+  <main-layout>
+    <div class="uk-margin-top">
+    <h5>PrayerTimes v0.0.2</h5>
+    <h6><a href="https://github.com/Gardencoder/prayertimes-electron">Gardencoder/prayertimes-electron</a></h6>
+    </div>
+  </main-layout>
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style lang="css" scoped>
+</style>

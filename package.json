@@ -1,0 +1,55 @@
+{
+  "name": "PrayerTimes",
+  "version": "1.0.0",
+  "description": "Prayertimes desktop application",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "electron": "electron .",
+    "webpack": "NODE_ENV=production & webpack",
+    "watch": "NODE_ENV=development & webpack --watch",
+    "package-mac": "electron-packager . --platform=darwin --icon=dist/assets/icons/mac/icon.icns --prune=true",
+    "package-win": "electron-packager . --platform=win32 --icon=dist/assets/icons/win/icon.ico --prune=true",
+    "package-linux": "electron-packager . --platform=linux --icon=assets/icons/png/128x128.png --prune=true"
+  },
+  "keywords": [
+    "PrayerTimes"
+  ],
+  "author": "Rami",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.6.0",
+    "electron": "^8.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "url-loader": "^0.6.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "dotenv": "^7.0.0",
+    "electron-settings": "^3.2.0",
+    "file-loader": "^1.1.11",
+    "less": "^2.7.3",
+    "less-loader": "^4.1.0",
+    "rtlcss-webpack-plugin": "^4.0.0",
+    "script-loader": "^0.7.2",
+    "style-loader": "^0.19.1",
+    "uikit": "^3.3.7",
+    "vue": "^2.6.11",
+    "vue-googlemaps": "^0.1.2",
+    "vue-i18n": "^8.15.7",
+    "vue-loader": "^14.2.4",
+    "vue-router": "^3.1.6",
+    "vue-style-loader": "^3.1.2",
+    "webpack": "^4.42.1"
+  }
+}
