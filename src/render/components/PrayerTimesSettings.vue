@@ -95,6 +95,7 @@
       <div class="uk-margin">
         <div class="uk-form-controls">
           <button class="uk-button uk-button-primary" type="button" v-on:click="updateSettings()">{{ $t('update')}}</button>
+          <button class="uk-button uk-button-primary" type="button" v-on:click="resetSettings()">{{ $t('reset')}}</button>
         </div>
       </div>
     </form>
@@ -104,18 +105,19 @@
 <script>
 const settings = require('electron-settings');
 const {ipcRenderer} = require('electron');
+var defaults = require('../utilities/Default.js');
 const remote = require('electron').remote;
 export default{
   data: function () {
      return {
        id: null,
-       latitude: settings.get('latitude'),
-       longitude: settings.get('longitude'),
-       timeZone: settings.get('timeZone'),
-       calculationMethod: settings.get('calculationMethod'),
-       dayTimeSave: settings.get('dayTimeSave') == 1,
-       asrCalculation: settings.get('asrCalculation'),
-       language: settings.get('language'),
+       latitude: settings.get('latitude',defaults.latitude),
+       longitude: settings.get('longitude',defaults.longitude),
+       timeZone: settings.get('timeZone',defaults.timeZone),
+       calculationMethod: settings.get('calculationMethod',defaults.calculationMethod),
+       dayTimeSave: settings.get('dayTimeSave',defaults.dayTimeSave) == 1,
+       asrCalculation: settings.get('asrCalculation',defaults.asrCalculation),
+       language: settings.get('language','en'),
        appLoader: false,
   		 options: {
           
@@ -132,6 +134,17 @@ export default{
   methods: {
     setLoader: function (show) {
       this.appLoader = show;
+    },
+    resetSettings: function () {
+      this.latitude = defaults.latitude;
+      this.longitude = defaults.longitude;
+      this.timeZone = defaults.timeZone;
+      this.calculationMethod = defaults.calculationMethod;
+      this.dayTimeSave = defaults.dayTimeSave;
+      this.asrCalculation = defaults.asrCalculation;
+      this.language = defaults.language;
+      
+      this.updateSettings();
     },
     updateSettings: function () {
       var self = this;

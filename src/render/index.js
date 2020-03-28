@@ -35,7 +35,9 @@ function setI18nLanguage (lang, direction) {
   i18n.locale = lang;
   document.querySelector('html').setAttribute('lang', lang);
   if (document.getElementsByTagName('link').length >0) {
-    document.getElementsByTagName('link')[getMainCssLinkIndex()].href = document.getElementsByTagName('link')[getMainCssLinkIndex()].href.replace(document.querySelector('html').getAttribute('dir'), direction);
+    if (document.getElementsByTagName('link')[getMainCssLinkIndex()] != null) {
+      document.getElementsByTagName('link')[getMainCssLinkIndex()].href = document.getElementsByTagName('link')[getMainCssLinkIndex()].href.replace(document.querySelector('html').getAttribute('dir'), direction);
+    }
   }
   document.querySelector('html').setAttribute('dir', direction);
   return lang;
@@ -71,6 +73,9 @@ Vue.component('main-layout', Main);
 
 import Clock from './components/Clock.vue';
 Vue.component('clock', Clock);
+
+import location from './components/location.vue';
+Vue.component('location', location);
 // Load Page
 import Home from './pages/Home.vue';
 import Settings from './pages/Settings.vue';

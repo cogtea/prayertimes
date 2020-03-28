@@ -19,6 +19,7 @@
 <script>
 import Vue from 'vue';
 var prayTimes = require('../utilities/PrayerTimes.js');
+var defaults = require('../utilities/Default.js');
 const settings = require('electron-settings');
 import azan from '../../assets/sound/azan.mp3';
 export default{
@@ -44,10 +45,9 @@ export default{
       settings.set(this.notificationKey(index),this.notifications[index]);
     },
     calculateTimes: function () {
-      prayTimes.prayTimes.adjust({asr: settings.get('asrCalculation')});
-      prayTimes.prayTimes.setMethod(settings.get('calculationMethod'));
-
-      this.times = prayTimes.prayTimes.getTimes(new Date(), [parseFloat(settings.get('latitude')), parseFloat(settings.get('longitude'))], parseInt(settings.get('timeZone')),parseInt(settings.get('dayTimeSave')),'24h');
+      prayTimes.prayTimes.adjust({asr: settings.get('asrCalculation',defaults.asrCalculation)});
+      prayTimes.prayTimes.setMethod(settings.get('calculationMethod',defaults.calculationMethod));
+      this.times = prayTimes.prayTimes.getTimes(new Date(), [parseFloat(settings.get('latitude',defaults.latitude)), parseFloat(settings.get('longitude',defaults.longitude))], parseInt(settings.get('timeZone',defaults.timeZone)),parseInt(settings.get('dayTimeSave', defaults.dayTimeSave)),'24h');    
     },
     loadNotifications: function () {
       for (var i = 0; i < 5; i++) {

@@ -2,6 +2,7 @@
   <div>
     <main-layout>
       <clock />
+      <location />
       <prayer-times-list></prayer-times-list>
     </main-layout>
   </div>

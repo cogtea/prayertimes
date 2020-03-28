@@ -13,6 +13,7 @@ module.exports = {
   time: 'Time',
   language: 'Language',
   update: 'Update',
+  reset: 'Reset',
   latitude: 'Latitude',
   longitude: 'Longitude',
   use_location: 'Use location services',

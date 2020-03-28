@@ -2,6 +2,7 @@
 
 Desktop application built with electronjs.
 
+!['mac screenshot'](screenshot/dev-day-1.png)
 ## Getting Started
 
 ```shell
