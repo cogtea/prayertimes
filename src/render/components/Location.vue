@@ -8,12 +8,7 @@ var defaults = require('../utilities/Default.js');
 export default {
   data:function () {
     return {
-      city: ''
-    }
-  },
-  methods: {
-    updateTime: function () {
-        this.city = settings.get('city', defaults.city)
+      city: settings.get('city', defaults.city)
     }
   }
 }

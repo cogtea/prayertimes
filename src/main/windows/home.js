@@ -7,9 +7,9 @@ module.exports = {
   createWindow: function () {
     homePage = new BrowserWindow({
         width: 550,
-        height: 400,
+        height: 420,
         minWidth: 550,
-        minHeight: 400,
+        minHeight: 420,
         icon: path.join(__dirname, '../../assets/icons/png/64x64.png'),
         webPreferences: {
           nodeIntegration: true //This window has node integration enabled by default. In Electron 5.0.0, node integration will be disabled by default. To prepare for this change, set {nodeIntegration: true} in the webPreferences for this window, or ensure that this window does not rely on node integration and set {nodeIntegration: false}.

@@ -36,6 +36,12 @@
                     <input type="text" class="uk-input" placeholder="Longitude" v-model="longitude">
                   </div>
                 </div>
+                <div class="uk-margin">
+                  <label class="uk-form-label">{{$t('city')}}</label>
+                  <div class="uk-form-controls">
+                    <input type="text" class="uk-input" placeholder="City" v-model="city">
+                  </div>
+                </div>
                 <button class="uk-button uk-button-default uk-button-small" type="button" v-on:click="updateLocation()">USE LOCATION<span uk-icon="icon: location"></span></button>
               </div>
           </li>
@@ -111,6 +117,7 @@ export default{
   data: function () {
      return {
        id: null,
+       city: settings.get('city',defaults.city),
        latitude: settings.get('latitude',defaults.latitude),
        longitude: settings.get('longitude',defaults.longitude),
        timeZone: settings.get('timeZone',defaults.timeZone),
@@ -123,6 +130,7 @@ export default{
           
   		 },
   		 zoom: 12,
+       azanTimer: null
      };
   },
   created: function () {
@@ -143,7 +151,7 @@ export default{
       this.dayTimeSave = defaults.dayTimeSave;
       this.asrCalculation = defaults.asrCalculation;
       this.language = defaults.language;
-      
+      this.city = defaults.city;
       this.updateSettings();
     },
     updateSettings: function () {
@@ -155,10 +163,15 @@ export default{
       settings.set('dayTimeSave',this.dayTimeSave?"1":"0");
       settings.set('asrCalculation',this.asrCalculation);
       settings.set('language',this.language);
+      settings.set('city',this.city);
       
       // We should not use it, cause no it is a single desktop window
       ipcRenderer.send('events-channels', 'updateSettings');
-      setTimeout(function () {
+      
+      if (this.azanTimer != null) {
+        clearTimeout(this.azanTimer)
+      }
+      this.azanTimer = setTimeout(function () {
         // wait for lanuage settings to be updated :)
         self.$ui.notification({
             message: self.$t('messages.update_settings'),
