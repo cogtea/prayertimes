@@ -122,15 +122,14 @@ export default{
        longitude: settings.get('longitude',defaults.longitude),
        timeZone: settings.get('timeZone',defaults.timeZone),
        calculationMethod: settings.get('calculationMethod',defaults.calculationMethod),
-       dayTimeSave: settings.get('dayTimeSave',defaults.dayTimeSave) == 1,
+       dayTimeSave: settings.get('dayTimeSave',defaults.dayTimeSave) == "1",
        asrCalculation: settings.get('asrCalculation',defaults.asrCalculation),
        language: settings.get('language','en'),
        appLoader: false,
   		 options: {
           
   		 },
-  		 zoom: 12,
-       azanTimer: null
+  		 zoom: 12
      };
   },
   created: function () {
@@ -148,7 +147,7 @@ export default{
       this.longitude = defaults.longitude;
       this.timeZone = defaults.timeZone;
       this.calculationMethod = defaults.calculationMethod;
-      this.dayTimeSave = defaults.dayTimeSave;
+      this.dayTimeSave = defaults.dayTimeSave == "1";
       this.asrCalculation = defaults.asrCalculation;
       this.language = defaults.language;
       this.city = defaults.city;
@@ -168,10 +167,7 @@ export default{
       // We should not use it, cause no it is a single desktop window
       ipcRenderer.send('events-channels', 'updateSettings');
       
-      if (this.azanTimer != null) {
-        clearTimeout(this.azanTimer)
-      }
-      this.azanTimer = setTimeout(function () {
+      setTimeout(function () {
         // wait for lanuage settings to be updated :)
         self.$ui.notification({
             message: self.$t('messages.update_settings'),

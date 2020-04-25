@@ -27,6 +27,7 @@ export default{
      return {
        times: [],
        notifications: [],
+       azanTimer: null,
      };
   },
   created: function () {
@@ -56,8 +57,10 @@ export default{
     },
     checkForAzanNotification: function () {
       var self =  this;
-      
-      setInterval(function(){
+      if (this.azanTimer) {
+        clearTimeout(this.azanTimer)
+      }
+      this.azanTimer = setInterval(function(){
         var today = new Date();
         var hours = today.getHours();
         var minutes = today.getMinutes();
