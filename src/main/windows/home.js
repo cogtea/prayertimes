@@ -1,7 +1,8 @@
-const {app, ipcMain, BrowserWindow, session} = require('electron');
+const {app, ipcMain, BrowserWindow, Tray, session} = require('electron');
 const path = require('path');
 const url = require('url');
 const settings = require('electron-settings');
+const Positioner = require('electron-positioner');
 
 module.exports = {
   createWindow: function () {
@@ -35,7 +36,22 @@ module.exports = {
       // when you should delete the corresponding element.
       win = null
     })
+    
+    // Show  Tray icon
+    let iconPath = path.join(__dirname, '../../assets/icons/png/24x24.png')
+    var trayIcon = new Tray(iconPath);
+    trayIcon.setToolTip('PrayerTimes');
+    trayIcon.on('click', (e, bounds) => {
+      if ( homePage.isVisible() ) {
+        homePage.hide();
+      } else {
+        let positioner = new Positioner(homePage);
+        positioner.move('trayCenter', bounds)
 
+        homePage.show();
+      }
+    });
+    
     require('../menu/common.js');
     require('../utilities/Events.js');
 

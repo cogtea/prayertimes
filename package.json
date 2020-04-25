@@ -36,6 +36,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "css-loader": "^3.5.2",
     "dotenv": "^7.0.0",
+    "electron-positioner": "^4.1.0",
     "electron-settings": "^3.2.0",
     "file-loader": "^1.1.11",
     "less": "^2.7.3",
