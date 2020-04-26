@@ -28,6 +28,7 @@ export default{
        times: [],
        notifications: [],
        azanTimer: null,
+       azanAudio: null,
      };
   },
   created: function () {
@@ -75,12 +76,13 @@ export default{
                   requireInteraction: true
                 });
                 
-                var audio = new Audio(azan);
-                audio.play();
-                
+                if (self.azanAudio == null || self.azanAudio.paused == true) {
+                  self.azanAudio = new Audio(azan);
+                  self.azanAudio.play();
+                }
                 notification.onclick = function (event) {
-                  audio.pause();
-                  audio.currentTime = 0;
+                  self.azanAudio.pause();
+                  self.azanAudio.currentTime = 0;
                 };
                 break;
               }
