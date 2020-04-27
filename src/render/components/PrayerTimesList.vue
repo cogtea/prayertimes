@@ -1,7 +1,7 @@
 <template>
     <table class="uk-table uk-table-small uk-table-divider">
       <tbody>
-        <tr v-for="(pray, index) in prays" class="active">
+        <tr v-for="(pray, index) in prays" v-bind:class="{ next: pray.name == azanNext }">
           <td><b class="uk-text">{{pray.name}}</b></td>
           <td class="uk-text">{{pray.time}}</td>
           <td>
@@ -29,12 +29,14 @@ export default{
        notifications: [],
        azanTimer: null,
        azanAudio: null,
+       azanNext: null,
      };
   },
   created: function () {
     this.loadNotifications();
     this.calculateTimes();    
     this.checkForAzanNotification();
+    this.setNextAzan();
   },
   methods: {
     notificationKey: function (index) {
@@ -54,6 +56,22 @@ export default{
     loadNotifications: function () {
       for (var i = 0; i < 5; i++) {
         this.notifications[i] = settings.get(this.notificationKey(i));
+      }
+    },
+    setNextAzan: function () {
+      var today = new Date();
+      var hours = today.getHours();
+      this.azanNext = null;      
+      for (var index in this.prays) {
+        if (this.prays.hasOwnProperty(index)) {
+            var timeSplit = this.prays[index].time.split(":");
+            if (timeSplit[0] > hours) {
+              this.azanNext = this.prays[index].name;
+            }
+        }
+      }
+      if (this.azanNext == null) {
+        this.azanNext = this.prays[0].name;
       }
     },
     checkForAzanNotification: function () {
@@ -91,6 +109,7 @@ export default{
             }
           }
         }
+        self.setNextAzan()
       }, 60 * 1000);
     }
   },

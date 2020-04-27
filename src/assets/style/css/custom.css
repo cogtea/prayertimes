@@ -9,3 +9,7 @@ body{
 .uk-spinner circle{
   color: #a5d6a7 !important;
 }
+
+.next{
+  background-color: #a5d6a780;
+}
