@@ -67,6 +67,7 @@ export default{
             var timeSplit = this.prays[index].time.split(":");
             if (timeSplit[0] > hours) {
               this.azanNext = this.prays[index].name;
+              break;
             }
         }
       }
