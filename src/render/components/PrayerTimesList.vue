@@ -76,10 +76,12 @@ export default{
                   requireInteraction: true
                 });
                 
-                if (self.azanAudio == null || self.azanAudio.paused == true) {
+                if (self.azanAudio == null) {
                   self.azanAudio = new Audio(azan);
-                  self.azanAudio.play();
                 }
+                self.azanAudio.currentTime = 0;
+                self.azanAudio.play();
+
                 notification.onclick = function (event) {
                   self.azanAudio.pause();
                   self.azanAudio.currentTime = 0;
