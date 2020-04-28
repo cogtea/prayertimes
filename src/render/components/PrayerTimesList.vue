@@ -61,11 +61,12 @@ export default{
     setNextAzan: function () {
       var today = new Date();
       var hours = today.getHours();
+      var minutes = today.getMinutes();
       this.azanNext = null;      
       for (var index in this.prays) {
         if (this.prays.hasOwnProperty(index)) {
             var timeSplit = this.prays[index].time.split(":");
-            if (timeSplit[0] > hours) {
+            if (timeSplit[0] > hours || (timeSplit[0] == hours && timeSplit[1] >= minutes)) {
               this.azanNext = this.prays[index].name;
               break;
             }
