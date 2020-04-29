@@ -13,7 +13,7 @@ const template = [
     submenu: [
       {
         label: 'Get Application Source Code',
-        click () { require('electron').shell.openExternal('https://github.com/gardencoder') }
+        click () { require('electron').shell.openExternal('https://github.com/cogtea') }
       }
     ]
   }
