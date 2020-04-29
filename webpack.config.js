@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RtlCssPlugin = require('rtlcss-webpack-plugin');
 
 var pathsToClean = [
-  'dist',
+  'frontend',
 ];
 
 // the clean options to use
@@ -22,8 +22,8 @@ module.exports = {
   entry: './render/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: path.resolve(__dirname, 'dist') + '/'
+    path: path.resolve(__dirname, 'frontend'),
+    publicPath: path.resolve(__dirname, 'frontend') + '/'
   },
   module: {
      rules: [

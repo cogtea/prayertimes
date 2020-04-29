@@ -2,14 +2,20 @@
   "name": "PrayerTimes",
   "version": "1.0.0",
   "description": "Prayertimes desktop application",
-  "main": "dist/main/index.js",
+  "main": "frontend/main/index.js",
+  "postinstall": "electron-builder install-app-deps",
   "scripts": {
     "electron": "electron .",
     "webpack": "NODE_ENV=production & webpack",
     "watch": "NODE_ENV=development & webpack --watch",
-    "package-mac": "electron-packager . --platform=darwin --icon=dist/assets/icons/mac/icon.icns --prune=true",
-    "package-win": "electron-packager . --platform=win32 --icon=dist/assets/icons/win/icon.ico --prune=true",
-    "package-linux": "electron-packager . --platform=linux --icon=assets/icons/png/128x128.png --prune=true"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.cogtea.prayertimes",
+    "mac": {
+      "category": "public.app-category.lifestyle"
+    }
   },
   "keywords": [
     "PrayerTimes"
@@ -29,7 +35,8 @@
     "mini-css-extract-plugin": "^0.9.0",
     "url-loader": "^0.6.2",
     "vue-template-compiler": "^2.6.11",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "electron-builder": "^22.6.0"
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
