@@ -116,14 +116,61 @@ const router = new VueRouter({
   routes
 });
 
+// Instance
+import Azan from './utilities/Azan.js';
 var app = new Vue({
   i18n,
   router,
   el: '#app',
+  data: {
+     prays: Azan.getPrays(),
+     notifications: Azan.loadNotifications(),
+     azanTimer: null,
+     azanAudio: null,
+     azanNext: null,
+  },
   created: function () {
     loadLanguageAsync(settings.get("language"));
     ipcRenderer.on('events-channels-render', (event, arg) => {
       loadLanguageAsync(settings.get("language"));
     });
+    this.checkForAzanNotification();    
+  },
+  methods: {
+    updateNotificationStatus: function (index, status) {
+      this.notifications[index] = status;
+      Vue.set(this.notifications, index, status);
+      Azan.setNotificationStatus(index, status);
+    },
+    getNextAzan: function (prays) {
+      return Azan.getNextAzan(prays);
+    },
+    checkForAzanNotification: function () {
+      var self =  this;
+      if (this.azanTimer) {
+        clearTimeout(this.azanTimer)
+      }
+      this.azanTimer = setInterval(function(){
+        
+        var nextPray = Azan.checkAzanNotification();
+        if (next!==false) {
+          var notification = new Notification('Time to Pray', {
+            body: nextPray,
+            requireInteraction: true
+          });
+          
+          if (self.azanAudio == null) {
+            self.azanAudio = new Audio(azan);
+          }
+          self.azanAudio.currentTime = 0;
+          self.azanAudio.play();
+
+          notification.onclick = function (event) {
+            self.azanAudio.pause();
+            self.azanAudio.currentTime = 0;
+          };
+        }     
+      }, 60 * 1000);
+    }
   }
 });
