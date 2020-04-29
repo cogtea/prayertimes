@@ -74,7 +74,7 @@ Vue.component('main-layout', Main);
 import Clock from './components/Clock.vue';
 Vue.component('clock', Clock);
 
-import location from './components/location.vue';
+import location from './components/Location.vue';
 Vue.component('location', location);
 // Load Page
 import Home from './pages/Home.vue';
