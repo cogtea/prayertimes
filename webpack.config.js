@@ -5,9 +5,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RtlCssPlugin = require('rtlcss-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 var pathsToClean = [
-  'frontend',
+  'dist',
 ];
 
 // the clean options to use
@@ -22,8 +23,8 @@ module.exports = {
   entry: './render/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'frontend'),
-    publicPath: path.resolve(__dirname, 'frontend') + '/'
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: path.resolve(__dirname, 'dist') + '/'
   },
   module: {
      rules: [
@@ -46,7 +47,10 @@ module.exports = {
       new MiniCssExtractPlugin({
           filename: 'assets/css/[name].ltr.css',
         }),
-      new RtlCssPlugin('assets/css/[name].rtl.css')
+      new RtlCssPlugin('assets/css/[name].rtl.css'),
+      new Dotenv({
+        systemvars: true,
+      })
   ],
   resolve: {
     alias: {
