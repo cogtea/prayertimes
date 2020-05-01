@@ -1,4 +1,4 @@
-name: Electron CD
+name: Build PrayerTimes Electron
 
 on: [push]
 
@@ -8,33 +8,48 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+      matrix:  
+        os: [macOS-latest]
 
     steps:
       - name: Context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: actions/checkout@v1
+
+      - name: Check out Git repo
+        uses: actions/checkout@v1
         with:
           fetch-depth: 1
+          
       - name: Use Node.js 10.x
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: yarn install
+      
+      - name: Install dependencies
         run: |
           yarn install
+      
+      - name: Build Webpack (Render Thread)
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          echo "$GOOGLE_API_KEY"
+          yarn run webpack
+      
       - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           yarn run dist
-      - name: Cleanup artifacts
-        if: matrix.os != 'windows-latest'
+      
+      - name: Cleanup macOS Artifacts
+        if: matrix.os == 'macOS-latest'
         run: |
           mkdir artifacts
-          mv "dist/(*.exe,*.deb,*.AppImage,*.dmg)" artifacts || true
-      - name: Cleanup artifacts Win
+          mv dist/*.dmg artifacts || true
+      - name: Cleanup Win artifacts 
         if: matrix.os == 'windows-latest'
         run: |
           mkdir artifacts
