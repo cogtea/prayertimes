@@ -9,7 +9,7 @@ Desktop application built with electronjs.
 
 ### macOS
 
-Download [the latest release]('https://github.com/cogtea/prayertimes/releases/download/1.0.0/PrayerTimes-1.0.0.dmg')
+Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.0/PrayerTimes-1.0.0.dmg)
 
 ### windows/ linux
 
