@@ -1,8 +1,20 @@
 # PrayerTimes
+![Build PrayerTimes Electron](https://github.com/cogtea/prayertimes/workflows/Build%20PrayerTimes%20Electron/badge.svg?branch=master)
 
 Desktop application built with electronjs.
 
-!['mac screenshot'](screenshot/dev-day-1.png)
+!['mac screenshot'](screenshot/dev-day-2.png)
+
+## Download
+
+### macOS
+
+Download [the latest release]('https://github.com/cogtea/prayertimes/releases/download/1.0.0/PrayerTimes-1.0.0.dmg')
+
+### windows/ linux
+
+- [ ] TODO  test and build.
+
 ## Getting Started
 
 ```shell
