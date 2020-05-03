@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <div class="uk-margin-top">
-    <h5>PrayerTimes v0.0.2</h5>
+    <h5>PrayerTimes v1.0.1</h5>
     <h6><a href="https://github.com/cogtea/prayertimes">cogtea/prayertimes</a></h6>
     </div>
   </main-layout>
