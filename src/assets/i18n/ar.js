@@ -1,4 +1,5 @@
 module.exports = {
+  font_family: 'ar.ttf',
   app_name: 'مواقيت الصلاة',
   timing: 'المواقيت',
   settings: 'الاعدادات',

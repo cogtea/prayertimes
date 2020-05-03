@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RtlCssPlugin = require('rtlcss-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const { VueLoaderPlugin } = require('vue-loader');
 
 var pathsToClean = [
   'dist',
@@ -29,12 +30,12 @@ module.exports = {
   module: {
      rules: [
        { test: /\.css$/, use: [ process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader']},
-       {test: /\.less$/,use: [process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
+       { test: /\.less$/,use: [process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
        { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
 			 { test: /\.vue$/, loader: 'vue-loader', options: { loaders: {} /* other vue-loader options go here */}},
        { test: /\.(png|jpg|gif|svg)$/, loader: 'file-loader', options: { name: '[name].[ext]' , outputPath: 'assets/imgs/', publicPath: '../../assets/imgs/'}},
        { test: /\.mp3$/, loader: 'file-loader', options: { name: '[name].[ext]' , outputPath: 'assets/sound/', publicPath: '../../assets/sound/'}},
-       { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+       { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000&name=./assets/fonts/[name].[ext]' }
      ]
   },
   plugins: [
@@ -50,7 +51,8 @@ module.exports = {
       new RtlCssPlugin('assets/css/[name].rtl.css'),
       new Dotenv({
         systemvars: true,
-      })
+      }),
+      new VueLoaderPlugin()
   ],
   resolve: {
     alias: {

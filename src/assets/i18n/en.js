@@ -1,4 +1,5 @@
 module.exports = {
+  font_family: 'en.ttf',
   app_name: 'PrayerTimes',
   timing: 'Times',
   settings: 'Settings',

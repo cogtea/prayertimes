@@ -31,7 +31,7 @@ function getMainCssLinkIndex() {
   }
 }
 
-function setI18nLanguage (lang, direction) {
+function setI18nLanguage (lang, direction, fontEncoded) {
   i18n.locale = lang;
   document.querySelector('html').setAttribute('lang', lang);
   if (document.getElementsByTagName('link').length >0) {
@@ -40,6 +40,13 @@ function setI18nLanguage (lang, direction) {
     }
   }
   document.querySelector('html').setAttribute('dir', direction);
+  
+  var fontFamily = 'Font-' + lang;
+  var font = new FontFace(fontFamily, 'url(' + fontEncoded.default + ')');
+  document.fonts.add(font);
+
+  document.body.style.fontFamily = fontFamily;
+
   return lang;
 }
 
@@ -50,10 +57,17 @@ export function loadLanguageAsync (lang) {
       return import(/* webpackChunkName: "lang-[request]" */ `../assets/i18n/${lang}`).then(msgs => {
         i18n.setLocaleMessage(lang, msgs.default)
         loadedLanguages.push(lang)
-        return setI18nLanguage(lang, msgs.default.dir)
+        var font = msgs.default.font_family;
+        import(/* webpackChunkName: "lang-font-[request]" */ `../assets/i18n/fonts/${font}`).then( font => {
+          return setI18nLanguage(lang, msgs.default.dir, font)
+        })
       })
-    } 
-    return Promise.resolve(setI18nLanguage(lang, i18n.getLocaleMessage(lang).dir))
+    }
+    var msgs = i18n.getLocaleMessage(lang);
+    var font = msgs.font_family;
+    import(/* webpackChunkName: "lang-font-[request]" */ `../assets/i18n/fonts/${font}`).then( font => {
+      return setI18nLanguage(lang, msgs.dir, font)
+    })
   }
   return Promise.resolve(lang)
 }
