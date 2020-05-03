@@ -1,4 +1,4 @@
-const settings = require('electron-settings');
+import settings from './Settings.js';
 
 const defaults = require('./Default.js');
 const prayTimes = require('./PrayerTimes.js');

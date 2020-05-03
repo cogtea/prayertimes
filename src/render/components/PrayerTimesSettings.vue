@@ -109,7 +109,7 @@
   </div>
 </template>
 <script>
-const settings = require('electron-settings');
+import settings from '../utilities/Settings.js';
 const {ipcRenderer} = require('electron');
 var defaults = require('../utilities/Default.js');
 const remote = require('electron').remote;

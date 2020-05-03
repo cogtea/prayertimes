@@ -3,7 +3,7 @@
 </template>
 
 <script>
-const settings = require('electron-settings');
+import settings from '../utilities/Settings.js';
 var defaults = require('../utilities/Default.js');
 export default {
   data:function () {

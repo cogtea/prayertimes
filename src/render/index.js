@@ -4,7 +4,6 @@ Vue.use(VueRouter);
 
 // Main
 const {ipcRenderer, remote} = require('electron');
-const settings = require('electron-settings');
 
 // Localization
 import VueI18n from 'vue-i18n';
@@ -118,6 +117,7 @@ const router = new VueRouter({
 
 // Instance
 import Azan from './utilities/Azan.js';
+import settings from './utilities/Settings.js';
 var app = new Vue({
   i18n,
   router,
