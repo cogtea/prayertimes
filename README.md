@@ -3,15 +3,19 @@
 
 Desktop application built with electronjs.
 
-!['mac screenshot'](screenshot/dev-day-2.png)
+!['mac screenshot'](screenshot/dev-day-3-001.png)
 
 ## Download
 
 ### macOS
 
-Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.0/PrayerTimes-1.0.0.dmg)
+Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.1/PrayerTimes-1.0.1.dmg)
 
-### windows/ linux
+### windows
+
+Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.1/PrayerTimes.Setup.1.0.1.exe)
+
+### linux
 
 - [ ] TODO  test and build.
 
