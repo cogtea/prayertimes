@@ -118,6 +118,7 @@ const router = new VueRouter({
 
 // Instance
 import Azan from './utilities/Azan.js';
+import azanSound from '../assets/sound/azan.mp3';
 var app = new Vue({
   i18n,
   router,
@@ -151,16 +152,15 @@ var app = new Vue({
         clearTimeout(this.azanTimer)
       }
       this.azanTimer = setInterval(function(){
-        
-        var nextPray = Azan.checkAzanNotification();
-        if (next!==false) {
+        var nextPray = Azan.checkAzanNotification(self.prays, self.notifications);
+        if (nextPray !== false) {
           var notification = new Notification('Time to Pray', {
             body: nextPray,
             requireInteraction: true
           });
           
           if (self.azanAudio == null) {
-            self.azanAudio = new Audio(azan);
+            self.azanAudio = new Audio(azanSound);
           }
           self.azanAudio.currentTime = 0;
           self.azanAudio.play();

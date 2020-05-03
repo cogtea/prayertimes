@@ -43,6 +43,9 @@ const fn = {
     return prays[0].name;
   },
   checkAzanNotification(prays, notifications){
+    var today = new Date();
+    var hours = today.getHours();
+    var minutes = today.getMinutes();
     for (var index in prays) {
       if (prays.hasOwnProperty(index)) {
         if (notifications[index]){
