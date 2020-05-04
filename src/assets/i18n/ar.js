@@ -6,6 +6,7 @@ module.exports = {
   about: 'عن التطبيق',
   dir: 'rtl',
   fajr: 'فجر',
+  imsak: 'امساك',
   dhuhr: 'الظهر',
   asr: 'العصر',
   maghrib: 'المغرب',

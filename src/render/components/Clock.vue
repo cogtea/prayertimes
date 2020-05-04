@@ -1,5 +1,5 @@
 <template>
-  <h1 class="uk-animation-fade uk-margin-top">{{time}}</h1>
+  <h2 class="uk-animation-fade uk-margin-top">{{time}}</h2>
 </template>
 
 <script>

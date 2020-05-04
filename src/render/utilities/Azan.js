@@ -11,7 +11,7 @@ const fn = {
     var prays = [];
     var times = fn.loadPrayTimes();
     for (var time in times) {
-      if(['imsak', 'sunrise', 'sunset', 'midnight'].indexOf(time) == -1){
+      if(['sunrise', 'sunset', 'midnight'].indexOf(time) == -1){
           prays.push({name: time, time: times[time]});
       }
     }
@@ -33,7 +33,7 @@ const fn = {
     var hours = today.getHours();
     var minutes = today.getMinutes();
     for (var index in prays) {
-      if (prays.hasOwnProperty(index)) {
+      if (prays.hasOwnProperty(index) && prays[index].name != "imsak") {
           var timeSplit = prays[index].time.split(":");
           if (timeSplit[0] > hours || (timeSplit[0] == hours && timeSplit[1] >= minutes)) {
             return prays[index].name;

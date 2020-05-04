@@ -6,6 +6,7 @@ module.exports = {
   about: 'About',
   dir: 'ltr',
   fajr: 'Fajr',
+  imsak: 'Imsak',
   dhuhr: 'Dhuhr',
   asr: 'Asr',
   maghrib: 'Maghrib',

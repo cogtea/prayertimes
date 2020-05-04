@@ -7,9 +7,9 @@ const Positioner = require('electron-positioner');
 module.exports = {
   createWindow: function () {
     homePage = new BrowserWindow({
-        width: 550,
+        width: 560,
         height: 420,
-        minWidth: 550,
+        minWidth: 560,
         minHeight: 420,
         icon: path.join(__dirname, '../../assets/icons/png/64x64.png'),
         webPreferences: {
