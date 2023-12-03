@@ -11,8 +11,6 @@ const { VueLoaderPlugin } = require('vue-loader');
 var pathsToClean = [
   'dist',
 ];
-
-// the clean options to use
 var cleanOptions = {
   exclude:  [],
   verbose:  true,
@@ -31,19 +29,20 @@ module.exports = {
      rules: [
        { test: /\.css$/, use: [ process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader']},
        { test: /\.less$/,use: [process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
-       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
 			 { test: /\.vue$/, loader: 'vue-loader', options: { loaders: {} /* other vue-loader options go here */}},
-       { test: /\.(png|jpg|gif|svg)$/, loader: 'file-loader', options: { name: '[name].[ext]' , outputPath: 'assets/imgs/', publicPath: '../../assets/imgs/'}},
-       { test: /\.mp3$/, loader: 'file-loader', options: { name: '[name].[ext]' , outputPath: 'assets/sound/', publicPath: '../../assets/sound/'}},
-       { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000&name=./assets/fonts/[name].[ext]' }
+       { test: /\.(png|jpg|gif|svg)$/, type: 'asset/resource', generator: { filename: 'assets/imgs/[name].[ext]' }},
+       { test: /\.mp3$/, type: 'asset/resource', generator: { filename: 'assets/sound/[name].[ext]'}},
+       { test: /\.(woff|woff2|eot|ttf|svg)$/, type: 'asset/resource', generator: { filename: 'assets/fonts/[name].[ext]' }}
      ]
   },
   plugins: [
       new CleanWebpackPlugin(pathsToClean, cleanOptions),
-      new CopyWebpackPlugin([
+      new CopyWebpackPlugin({
+      patterns: [
             { from: 'main', to: 'main' },
             { from: 'assets/icons', to: 'assets/icons'}
-        ]),
+        ]
+      }),
       new HtmlWebpackPlugin({template: './render/layouts/app.html', filename: 'render/layouts/app.html'}),
       new MiniCssExtractPlugin({
           filename: 'assets/css/[name].ltr.css',
@@ -54,15 +53,14 @@ module.exports = {
       }),
       new VueLoaderPlugin()
   ],
+  performance: {
+    hints: 'warning'
+  },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['*', '.js', '.vue', '.json']
-  },
-  performance: {
-    hints: false
+    }
   },
   target: "electron-renderer",
-  mode: process.env.NODE_ENV
+  mode: process.env.NODE_ENV !== 'development' ? 'production' : 'development'
 };

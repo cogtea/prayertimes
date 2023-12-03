@@ -1,7 +1,6 @@
-const settings = require('electron-settings');
-
-const defaults = require('./Default.js');
-const prayTimes = require('./PrayerTimes.js');
+// import settings from 'electron-settings';
+import defaults from './Default';
+import prayTimes from './PrayerTimes';
 
 const fn = {
   getNotificationKey(index){
@@ -18,12 +17,12 @@ const fn = {
     return prays;
   },
   setNotificationStatus(index, status){
-    settings.set(fn.getNotificationKey(index),status);
+    // settings.set(fn.getNotificationKey(index),status);
   },
   loadNotifications(){
     var notifications = [];
     for (var i = 0; i < 5; i++) {
-      notifications[i] = settings.get(fn.getNotificationKey(i));
+      // notifications[i] = settings.get(fn.getNotificationKey(i));
     }
     return notifications;
   },
@@ -59,17 +58,16 @@ const fn = {
     return false;
   },
   loadPrayTimes() {
-    prayTimes.prayTimes.adjust({asr: settings.get('asrCalculation',defaults.asrCalculation)});
-    prayTimes.prayTimes.setMethod(settings.get('calculationMethod',defaults.calculationMethod));
-    
-    return prayTimes.prayTimes.getTimes(
+    prayTimes.adjust({asr: defaults.asrCalculation});
+    prayTimes.setMethod(defaults.calculationMethod);
+    return prayTimes.getTimes(
       new Date(),
-       [parseFloat(settings.get('latitude',defaults.latitude)),
-        parseFloat(settings.get('longitude',defaults.longitude))],
-         parseInt(settings.get('timeZone',defaults.timeZone)),
-         parseInt(settings.get('dayTimeSave', defaults.dayTimeSave)),
-         '24h');    
+       [parseFloat(defaults.latitude),
+        parseFloat(defaults.longitude)],
+         parseInt(defaults.timeZone),
+         parseInt(defaults.dayTimeSave),
+         '24h');
   },
 }
 
-export default fn
+export default fn;
