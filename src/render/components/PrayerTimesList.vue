@@ -1,7 +1,7 @@
 <template>
     <table class="uk-table uk-table-small uk-table-divider">
       <tbody>
-        <tr v-for="(pray, index) in prays" v-bind:class="{ next: pray.name == azanNext }" v-if="pray.name != 'imsak'">
+        <tr v-for="(pray, index) in prays" v-bind:class="{ next: pray.name == azanNext }" v-if="pray==null || pray.name != 'imsak'">
           <td>
             <b class="uk-text">{{$t(pray.name)}}</b>
           </td>

@@ -56,11 +56,6 @@ module.exports = {
   performance: {
     hints: 'warning'
   },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    }
-  },
   target: "electron-renderer",
   mode: process.env.NODE_ENV !== 'development' ? 'production' : 'development'
 };
