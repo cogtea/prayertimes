@@ -1,6 +1,8 @@
-// import settings from 'electron-settings';
+// src/render/utilities/Azan.js
 import defaults from './Default';
 import prayTimes from './PrayerTimes';
+
+const Store = window.electron.store;
 
 const fn = {
   getNotificationKey(index){
@@ -17,12 +19,12 @@ const fn = {
     return prays;
   },
   setNotificationStatus(index, status){
-    // settings.set(fn.getNotificationKey(index),status);
+    Store.set(fn.getNotificationKey(index), status);
   },
   loadNotifications(){
     var notifications = [];
     for (var i = 0; i < 5; i++) {
-      // notifications[i] = settings.get(fn.getNotificationKey(i));
+      notifications[i] = Store.get(fn.getNotificationKey(i),false);
     }
     return notifications;
   },
@@ -58,15 +60,24 @@ const fn = {
     return false;
   },
   loadPrayTimes() {
-    prayTimes.adjust({asr: defaults.asrCalculation});
-    prayTimes.setMethod(defaults.calculationMethod);
+    const asrCalculation = Store.get('asrCalculation', defaults.asrCalculation);
+    const calculationMethod = Store.get('calculationMethod', defaults.calculationMethod);
+    const latitude = Store.get('latitude', defaults.latitude);
+    const longitude = Store.get('longitude', defaults.longitude);
+    const timeZone = Store.get('timeZone', defaults.timeZone);
+    const dayTimeSave = Store.get('dayTimeSave', defaults.dayTimeSave);
+
+    // Use the retrieved preferences
+    prayTimes.adjust({ asr: asrCalculation });
+    prayTimes.setMethod(calculationMethod);
+
     return prayTimes.getTimes(
       new Date(),
-       [parseFloat(defaults.latitude),
-        parseFloat(defaults.longitude)],
-         parseInt(defaults.timeZone),
-         parseInt(defaults.dayTimeSave),
-         '24h');
+      [parseFloat(latitude), parseFloat(longitude)],
+      parseInt(timeZone),
+      parseInt(dayTimeSave),
+      '24h'
+    );
   },
 }
 

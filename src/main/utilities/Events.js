@@ -1,4 +1,6 @@
-const {ipcMain} = require('electron')
+// src/main/utilities/Events.js
+const {ipcMain} = require('electron');
+const Store = require('electron-store');
 
 ipcMain.on('events-channels', (event, arg) => {
   switch (arg) {
@@ -8,3 +10,11 @@ ipcMain.on('events-channels', (event, arg) => {
     default:
   }
 })
+
+const store = new Store();
+ipcMain.on('electron-store-get', async(event, key,defaultVal) => {
+  event.returnValue = store.get(key, defaultVal);
+});
+ipcMain.on('electron-store-set', async (event, key, val) => {
+  store.set(key, val);
+});

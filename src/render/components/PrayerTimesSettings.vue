@@ -109,110 +109,112 @@
   </div>
 </template>
 <script>
-// import settings from 'electron-settings';
 // import ipcRenderer from 'electron';
-// import defaults from '../utilities/Default';
-// export default{
-//   data: function () {
-//      return {
-//        id: null,
-//        city: settings.get('city',defaults.city),
-//        latitude: settings.get('latitude',defaults.latitude),
-//        longitude: settings.get('longitude',defaults.longitude),
-//        timeZone: settings.get('timeZone',defaults.timeZone),
-//        calculationMethod: settings.get('calculationMethod',defaults.calculationMethod),
-//        dayTimeSave: settings.get('dayTimeSave',defaults.dayTimeSave) == "1",
-//        asrCalculation: settings.get('asrCalculation',defaults.asrCalculation),
-//        language: settings.get('language','en'),
-//        appLoader: false,
-//   		 options: {
-          
-//   		 },
-//   		 zoom: 12
-//      };
-//   },
-//   created: function () {
+import defaults from '../utilities/Default';
 
-//   },
-//   mounted: function (){
-//     this.id = this._uid;
-//   },
-//   methods: {
-//     setLoader: function (show) {
-//       this.appLoader = show;
-//     },
-//     resetSettings: function () {
-//       this.latitude = defaults.latitude;
-//       this.longitude = defaults.longitude;
-//       this.timeZone = defaults.timeZone;
-//       this.calculationMethod = defaults.calculationMethod;
-//       this.dayTimeSave = defaults.dayTimeSave == "1";
-//       this.asrCalculation = defaults.asrCalculation;
-//       this.language = defaults.language;
-//       this.city = defaults.city;
-//       this.updateSettings();
-//     },
-//     updateSettings: function () {
-//       var self = this;
-//       settings.set('latitude',this.latitude);
-//       settings.set('longitude',this.longitude);
-//       settings.set('timeZone',this.timeZone);
-//       settings.set('calculationMethod',this.calculationMethod);
-//       settings.set('dayTimeSave',this.dayTimeSave?"1":"0");
-//       settings.set('asrCalculation',this.asrCalculation);
-//       settings.set('language',this.language);
-//       settings.set('city',this.city);
+const Store = window.electron.store;
+
+export default{
+  data: function () {
+     return {
+       id: null,
+       city: Store.get('city',defaults.city),
+       latitude: Store.get('latitude',defaults.latitude),
+       longitude: Store.get('longitude',defaults.longitude),
+       timeZone: Store.get('timeZone',defaults.timeZone),
+       calculationMethod: Store.get('calculationMethod',defaults.calculationMethod),
+       dayTimeSave: Store.get('dayTimeSave',defaults.dayTimeSave) == "1",
+       asrCalculation: Store.get('asrCalculation',defaults.asrCalculation),
+       language: Store.get('language','en'),
+       appLoader: false,
+  		 options: {
+          
+  		 },
+  		 zoom: 12
+     };
+  },
+  created: function () {
+
+  },
+  mounted: function (){
+    this.id = this._uid;
+  },
+  methods: {
+    setLoader: function (show) {
+      this.appLoader = show;
+    },
+    resetSettings: function () {
+      this.latitude = defaults.latitude;
+      this.longitude = defaults.longitude;
+      this.timeZone = defaults.timeZone;
+      this.calculationMethod = defaults.calculationMethod;
+      this.dayTimeSave = defaults.dayTimeSave == "1";
+      this.asrCalculation = defaults.asrCalculation;
+      this.language = defaults.language;
+      this.city = defaults.city;
+      this.updateSettings();
+    },
+    updateSettings: function () {
+      var self = this;
+      Store.set('latitude',this.latitude);
+      Store.set('longitude',this.longitude);
+      Store.set('timeZone',this.timeZone);
+      Store.set('calculationMethod',this.calculationMethod);
+      Store.set('dayTimeSave',this.dayTimeSave?"1":"0");
+      Store.set('asrCalculation',this.asrCalculation);
+      Store.set('language',this.language);
+      Store.set('city',this.city);
       
-//       // We should not use it, cause no it is a single desktop window
-//       //ipcRenderer.send('events-channels', 'updateSettings');
+      // We should not use it, cause no it is a single desktop window
+      // ipcRenderer.send('events-channels', 'updateSettings');
       
-//       setTimeout(function () {
-//         // wait for lanuage settings to be updated :)
-//         self.$ui.notification({
-//             message: self.$t('messages.update_settings'),
-//             status: 'success',
-//             pos: 'bottom-center',
-//             timeout: 1000
-//         });
-//       },500);
+      setTimeout(function () {
+        // wait for lanuage Store to be updated :)
+        self.$ui.notification({
+            message: self.$t('messages.update_Store'),
+            status: 'success',
+            pos: 'bottom-center',
+            timeout: 1000
+        });
+      },500);
       
-//     },
-//     updateLocation: function () {
-//       var self = this;
-//       if (navigator.geolocation) {
-//         this.setLoader(true);
-//         navigator.geolocation.getCurrentPosition(function (position) {
-//           self.latitude = position.coords.latitude;
-//           self.longitude = position.coords.longitude;
-//           self.setLoader(false);
-//         },function (error) {
-//           console.log(error.message);
-//           self.setLoader(false);
-//         },{ enableHighAccuracy: true });
-//       } else {
-//         console.log("Geolocation is not supported by this browser.");
-//       }
-//     },
-//     onMarkerDrag: function (position) {
-//       this.latitude = position.latLng.lat();
-//       this.longitude = position.latLng.lng();
-//     }
-//   },
-//   computed: {
-//     location: {
-//   		get: function() {
-//          if (this.latitude != null && this.longitude !=null) {
-//            return {	lat: parseFloat(this.latitude), lng: parseFloat(this.longitude) };
-//          }
-//          return {lat: 0.0, lng: 0.0}
-//   		},
-//   		set: function(latLng) {
-//         this.latitude = latLng.lat;
-//         this.longitude = latLng.lng;
-//   		}
-//     }
-//   }
-// };
+    },
+    updateLocation: function () {
+      var self = this;
+      if (navigator.geolocation) {
+        this.setLoader(true);
+        navigator.geolocation.getCurrentPosition(function (position) {
+          self.latitude = position.coords.latitude;
+          self.longitude = position.coords.longitude;
+          self.setLoader(false);
+        },function (error) {
+          console.log(error.message);
+          self.setLoader(false);
+        },{ enableHighAccuracy: true });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    },
+    onMarkerDrag: function (position) {
+      this.latitude = position.latLng.lat();
+      this.longitude = position.latLng.lng();
+    }
+  },
+  computed: {
+    location: {
+  		get: function() {
+         if (this.latitude != null && this.longitude !=null) {
+           return {	lat: parseFloat(this.latitude), lng: parseFloat(this.longitude) };
+         }
+         return {lat: 0.0, lng: 0.0}
+  		},
+  		set: function(latLng) {
+        this.latitude = latLng.lat;
+        this.longitude = latLng.lng;
+  		}
+    }
+  }
+};
 </script>
 <style lang="css">
   form {
