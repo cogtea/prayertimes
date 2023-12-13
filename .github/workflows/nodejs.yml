@@ -1,6 +1,6 @@
 name: Build PrayerTimes Electron
 
-on: []
+on: [push]
 
 jobs:
   build:
