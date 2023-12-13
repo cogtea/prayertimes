@@ -1,6 +1,6 @@
 name: Build PrayerTimes Electron
 
-on: [push]
+on: []
 
 jobs:
   build:
@@ -12,6 +12,11 @@ jobs:
         os: [macOS-latest, windows-latest]
 
     steps:
+      - name: Use Node.js 21.4.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: '21.4.0'
+  
       - name: Context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
