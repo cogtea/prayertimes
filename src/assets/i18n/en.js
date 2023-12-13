@@ -1,5 +1,6 @@
 module.exports = {
   app_name: 'PrayerTimes',
+  time_to_pray: 'Time to Pray',
   timing: 'Times',
   settings: 'Settings',
   about: 'About',

@@ -5,10 +5,10 @@ const Positioner = require('electron-positioner');
 module.exports = {
   createWindow: function () {
     homePage = new BrowserWindow({
-        width: 560,
-        height: 420,
-        minWidth: 560,
-        minHeight: 420,
+        width: 640,
+        height: 412,
+        minWidth: 640,
+        minHeight: 412,
         icon: path.join(__dirname, '../../assets/icons/png/64x64.png'),
         webPreferences: {
           preload: path.join(__dirname, '../preload.js'),
@@ -23,7 +23,7 @@ module.exports = {
     }))
 
     // Open the DevTools.
-    //if(process.env.DEBUG == 'true')
+    if(process.env.DEBUG == 'true')
        homePage.webContents.openDevTools();
 
     // Emitted when the window is closed.

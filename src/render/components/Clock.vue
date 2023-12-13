@@ -3,6 +3,7 @@
 </template>
 
 <script>
+const Store = window.electron.store;
 export default {
   data:function () {
     return {
@@ -11,7 +12,7 @@ export default {
   },
   methods: {
     updateTime: function () {
-        this.time = new Date().toLocaleTimeString('en', { hour: "numeric",
+        this.time = new Date().toLocaleTimeString(Store.get('language','en'), { hour: "numeric",
                                             minute: "numeric"});
     }
   },

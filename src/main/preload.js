@@ -10,5 +10,3 @@ contextBridge.exposeInMainWorld('electron', {
         },
     },
 });
-
-console.log("Preloaded");

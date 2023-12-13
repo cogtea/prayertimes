@@ -1,8 +1,8 @@
 <template>
     <table class="uk-table uk-table-small uk-table-divider">
       <tbody>
-        <template v-for="(pray, index) in prays" :key="index" :pray="index" v-bind:class="{ next: pray.name == azanNext }">
-          <tr v-if="pray.name != 'imsak'">
+        <template v-for="(pray, index) in prays">
+          <tr v-if="pray.name != 'imsak'" v-bind:class="{ next: pray.name == azanNext }">
             <td>
               <b class="uk-text">{{$t(pray.name)}}</b>
             </td>

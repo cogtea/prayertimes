@@ -40,14 +40,14 @@ const fn = {
           }
       }
     }
-    return prays[0].name;
+    return prays[1].name;
   },
   checkAzanNotification(prays, notifications){
     var today = new Date();
     var hours = today.getHours();
     var minutes = today.getMinutes();
     for (var index in prays) {
-      if (prays.hasOwnProperty(index)) {
+      if (prays.hasOwnProperty(index) && prays[index].name != "imsak") {
         if (notifications[index]){
           var timeSplit = prays[index].time.split(":");
           if(timeSplit[0] == hours && timeSplit[1] == minutes){

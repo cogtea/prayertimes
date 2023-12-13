@@ -1,5 +1,6 @@
 module.exports = {
   app_name: 'مواقيت الصلاة',
+  time_to_pray: 'حان وقت الصلاه',
   timing: 'المواقيت',
   settings: 'الاعدادات',
   about: 'عن التطبيق',

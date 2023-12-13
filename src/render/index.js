@@ -1,6 +1,6 @@
-import { createApp, onMounted, ref } from 'vue';
+import { createApp, onMounted } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { createI18n, useI18n } from 'vue-i18n';
+import { createI18n } from 'vue-i18n';
 
 import Azan from './utilities/Azan.js';
 import azanSound from '../assets/sound/azan.mp3';
@@ -33,8 +33,8 @@ const Store = window.electron.store;
 
 const app = createApp({
     setup() {
-        const prays = ref(Azan.getPrays());
-        const notifications = ref(Azan.loadNotifications());
+        const prays = Azan.getPrays();
+        const notifications = Azan.loadNotifications();
         let azanTimer = null;
         let azanAudio = null;
 
@@ -54,9 +54,11 @@ const app = createApp({
             azanTimer = setInterval(() => {
                 const nextPray = Azan.checkAzanNotification(prays, notifications);
                 if (nextPray !== false) {
-                    const notification = new Notification('Time to Pray', {
+                    const notification = new Notification(i18n.global.t('time_to_pray'), {
                         body: nextPray,
                         requireInteraction: true,
+                        icon: '../../assets/icons/png/64x64.png',
+                        badge: '../../assets/icons/png/64x64.png',
                     });
 
                     if (azanAudio == null) {
@@ -85,9 +87,7 @@ const app = createApp({
                 direction = 'ltr';
             }
 
-            // let t = useI18n();
-            // t.locale.value = lang;
-
+            i18n.global.locale = lang
             document.querySelector('html').setAttribute('lang', lang);
             if (document.getElementsByTagName('link').length > 0) {
                 if (document.getElementsByTagName('link')[getMainCssLinkIndex()] != null) {
