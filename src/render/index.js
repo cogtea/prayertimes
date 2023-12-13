@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, onMounted } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { createI18n } from 'vue-i18n';
 
@@ -27,15 +27,13 @@ import VueGoogleMaps from '@fawmi/vue-google-maps'
 // Instance
 const app = createApp({
     setup() {
-        // Use ref for reactive properties
-        const prays = Azan.getPrays();
-        const notifications = Azan.loadNotifications();
+        let prays = Azan.getPrays();
+        let notifications = Azan.loadNotifications();
         let azanTimer = null;
         let azanAudio = null;
-        let azanNext = null;
 
         const updateNotificationStatus = function (index, status) {
-            notifications.value[index] = status;
+            notifications[index] = status;
             Azan.setNotificationStatus(index, status);
         };
 
@@ -70,10 +68,9 @@ const app = createApp({
         };
 
         // Use onMounted for lifecycle hooks
-        // onMounted(() => {
-        //     // Other initialization logic
-        //     // checkForAzanNotification();
-        // });
+        onMounted(() => {
+            checkForAzanNotification();
+        });
 
         return {
             prays,
