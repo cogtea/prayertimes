@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:  
-        os: [macOS-latest,windows-latest]
+        os: [macOS-latest, windows-latest]
 
     steps:
       - name: Context
@@ -29,7 +29,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          yarn install
+          npm install
       
       - name: Build Webpack (Render Thread)
         env:
@@ -37,13 +37,13 @@ jobs:
           NODE_ENV: production
         run: |
           echo "$GOOGLE_API_KEY"
-          yarn run webpack
+          npm run webpack
       
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          yarn run dist
+          npm run dist
       
       - name: Cleanup macOS Artifacts
         if: matrix.os == 'macOS-latest'
