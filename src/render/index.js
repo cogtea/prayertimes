@@ -46,7 +46,7 @@ const app = createApp({
                 clearTimeout(azanTimer);
             }
             azanTimer = setInterval(() => {
-                const nextPray = Azan.checkAzanNotification(prays.value, notifications.value);
+                const nextPray = Azan.checkAzanNotification(prays, notifications);
                 if (nextPray !== false) {
                     const notification = new Notification('Time to Pray', {
                         body: nextPray,

@@ -23,7 +23,7 @@ const fn = {
   },
   loadNotifications(){
     var notifications = [];
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
       notifications[i] = Store.get(fn.getNotificationKey(i),false);
     }
     return notifications;
