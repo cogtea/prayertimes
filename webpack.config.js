@@ -30,8 +30,8 @@ module.exports = {
        { test: /\.less$/,use: [process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
 			 { test: /\.vue$/, loader: 'vue-loader', options: { loaders: {} /* other vue-loader options go here */}},
        { test: /\.(png|jpg|gif|svg)$/, type: 'asset/resource', generator: { filename: 'assets/imgs/[name][ext]' }},
-       { test: /\.mp3$/, type: 'asset/resource', generator: { filename: 'assets/sound/[name][ext]'}},
-       { test: /\.(woff|woff2|eot|ttf|svg)$/, type: 'asset/resource', generator: { filename: 'assets/fonts/[name][ext]' }},
+       { test: /\.mp3$/, type: 'asset/resource', generator: { filename: 'assets/sound/[name][ext]' }},
+       { test: /\.(woff|woff2|eot|ttf|svg)$/, type: 'asset/resource', generator: { filename: 'assets/fonts/[name][ext]' }}
      ]
   },
   plugins: [

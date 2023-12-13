@@ -6,6 +6,8 @@ import Azan from './utilities/Azan.js';
 import azanSound from '../assets/sound/azan.mp3';
 import en from '../assets/i18n/en';
 import ar from '../assets/i18n/ar';
+import enFont from '../assets/i18n/fonts/en.ttf';
+import arFont from '../assets/i18n/fonts/ar.ttf';
 
 import Home from './pages/Home.vue';
 import Settings from './pages/Settings.vue';
@@ -27,16 +29,17 @@ import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 import eventBus from './utilities/EventBus.js';
 
+const Store = window.electron.store;
+
 const app = createApp({
     setup() {
         const prays = ref(Azan.getPrays());
         const notifications = ref(Azan.loadNotifications());
         let azanTimer = null;
         let azanAudio = null;
-        let azanNext = null;
 
         const updateNotificationStatus = function (index, status) {
-            notifications.value[index] = status;
+            notifications[index] = status;
             Azan.setNotificationStatus(index, status);
         };
 
@@ -49,7 +52,7 @@ const app = createApp({
                 clearTimeout(azanTimer);
             }
             azanTimer = setInterval(() => {
-                const nextPray = Azan.checkAzanNotification(prays.value, notifications.value);
+                const nextPray = Azan.checkAzanNotification(prays, notifications);
                 if (nextPray !== false) {
                     const notification = new Notification('Time to Pray', {
                         body: nextPray,
@@ -70,8 +73,39 @@ const app = createApp({
             }, 60 * 1000);
         };
 
+        const setI18nLanguage = function() {
+            let lang = Store.get("language");
+
+            var fontPath, direction;
+            if (lang == 'ar') {
+                fontPath = arFont;
+                direction = 'rtl';
+            } else {
+                fontPath = enFont;
+                direction = 'ltr';
+            }
+
+            // let t = useI18n();
+            // t.locale.value = lang;
+
+            document.querySelector('html').setAttribute('lang', lang);
+            if (document.getElementsByTagName('link').length > 0) {
+                if (document.getElementsByTagName('link')[getMainCssLinkIndex()] != null) {
+                    document.getElementsByTagName('link')[getMainCssLinkIndex()].href = document.getElementsByTagName('link')[getMainCssLinkIndex()].href.replace(document.querySelector('html').getAttribute('dir'), direction);
+                }
+            }
+            document.querySelector('html').setAttribute('dir', direction);
+
+            var fontFamily = 'Font-' + lang;
+            var font = new FontFace(fontFamily, 'url(' + fontPath + ')');
+            document.fonts.add(font);
+            document.body.style.fontFamily = fontFamily;
+            return lang;
+        };
+
         onMounted(() => {
             checkForAzanNotification();
+            setI18nLanguage();
             eventBus.on('updateSettings', () => {
                 // Reload prays
                 prays.value = Azan.getPrays();
@@ -87,6 +121,7 @@ const app = createApp({
             updateNotificationStatus,
             getNextAzan,
             checkForAzanNotification,
+            setI18nLanguage,
         };
     }
 });
@@ -114,43 +149,14 @@ const router = createRouter({
 app.use(router);
 
 // Locale
-const i18n = createI18n({
-    locale: 'en',
+let i18n = createI18n({
+    locale: Store.get("language"),
     messages: {
         en: en,
         ar: ar,
     },
 });
 app.use(i18n);
-
-function setI18nLanguage() {
-    const Store = window.electron.store;
-    let lang = Store.get("language");
-
-    var fontPath, direction;
-    if (lang == 'ar') {
-        fontPath = "../../assets/fonts/ar.ttf";
-        direction = 'rtl';
-    } else {
-        fontPath = "../../assets/fonts/en.ttf";
-        direction = 'ltr';
-    }
-
-    i18n.value = lang
-    document.querySelector('html').setAttribute('lang', lang);
-    if (document.getElementsByTagName('link').length > 0) {
-        if (document.getElementsByTagName('link')[getMainCssLinkIndex()] != null) {
-            document.getElementsByTagName('link')[getMainCssLinkIndex()].href = document.getElementsByTagName('link')[getMainCssLinkIndex()].href.replace(document.querySelector('html').getAttribute('dir'), direction);
-        }
-    }
-    document.querySelector('html').setAttribute('dir', direction);
-
-    var fontFamily = 'Font-' + lang;
-    var font = new FontFace(fontFamily, 'url(' + fontPath + ')');
-    document.fonts.add(font);
-    document.body.style.fontFamily = fontFamily;
-    return lang;
-}
 
 // UIKIT
 UIkit.use(Icons);
