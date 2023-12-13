@@ -1,7 +1,7 @@
-const settings = require('electron-settings');
+import defaults from './Default';
+import prayTimes from './PrayerTimes';
 
-const defaults = require('./Default.js');
-const prayTimes = require('./PrayerTimes.js');
+const Store = window.electron.store;
 
 const fn = {
   getNotificationKey(index){
@@ -18,12 +18,12 @@ const fn = {
     return prays;
   },
   setNotificationStatus(index, status){
-    settings.set(fn.getNotificationKey(index),status);
+    Store.set(fn.getNotificationKey(index), status);
   },
   loadNotifications(){
     var notifications = [];
-    for (var i = 0; i < 5; i++) {
-      notifications[i] = settings.get(fn.getNotificationKey(i));
+    for (var i = 0; i < 6; i++) {
+      notifications[i] = Store.get(fn.getNotificationKey(i),false);
     }
     return notifications;
   },
@@ -40,14 +40,14 @@ const fn = {
           }
       }
     }
-    return prays[0].name;
+    return prays[1].name;
   },
   checkAzanNotification(prays, notifications){
     var today = new Date();
     var hours = today.getHours();
     var minutes = today.getMinutes();
     for (var index in prays) {
-      if (prays.hasOwnProperty(index)) {
+      if (prays.hasOwnProperty(index) && prays[index].name != "imsak") {
         if (notifications[index]){
           var timeSplit = prays[index].time.split(":");
           if(timeSplit[0] == hours && timeSplit[1] == minutes){
@@ -59,17 +59,25 @@ const fn = {
     return false;
   },
   loadPrayTimes() {
-    prayTimes.prayTimes.adjust({asr: settings.get('asrCalculation',defaults.asrCalculation)});
-    prayTimes.prayTimes.setMethod(settings.get('calculationMethod',defaults.calculationMethod));
-    
-    return prayTimes.prayTimes.getTimes(
+    const asrCalculation = Store.get('asrCalculation', defaults.asrCalculation);
+    const calculationMethod = Store.get('calculationMethod', defaults.calculationMethod);
+    const latitude = Store.get('latitude', defaults.latitude);
+    const longitude = Store.get('longitude', defaults.longitude);
+    const timeZone = Store.get('timeZone', defaults.timeZone);
+    const dayTimeSave = Store.get('dayTimeSave', defaults.dayTimeSave);
+
+    // Use the retrieved preferences
+    prayTimes.adjust({ asr: asrCalculation });
+    prayTimes.setMethod(calculationMethod);
+
+    return prayTimes.getTimes(
       new Date(),
-       [parseFloat(settings.get('latitude',defaults.latitude)),
-        parseFloat(settings.get('longitude',defaults.longitude))],
-         parseInt(settings.get('timeZone',defaults.timeZone)),
-         parseInt(settings.get('dayTimeSave', defaults.dayTimeSave)),
-         '24h');    
+      [parseFloat(latitude), parseFloat(longitude)],
+      parseInt(timeZone),
+      parseInt(dayTimeSave),
+      '24h'
+    );
   },
 }
 
-export default fn
+export default fn;

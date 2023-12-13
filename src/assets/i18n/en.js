@@ -1,10 +1,9 @@
 module.exports = {
-  font_family: 'en.ttf',
   app_name: 'PrayerTimes',
+  time_to_pray: 'Time to Pray',
   timing: 'Times',
   settings: 'Settings',
   about: 'About',
-  dir: 'ltr',
   fajr: 'Fajr',
   imsak: 'Imsak',
   dhuhr: 'Dhuhr',

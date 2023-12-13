@@ -572,7 +572,5 @@ var DMath = {
 
 
 //---------------------- Init Object -----------------------
-
-
-//var prayTimes =new PrayTimes();
-exports.prayTimes = new PrayTimes();
+const prayTimes = new PrayTimes();
+export default prayTimes;

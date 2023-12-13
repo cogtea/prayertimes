@@ -7,7 +7,7 @@ require('dotenv').config();
 // Don't crash please
 crashReporter.start({
   productName: 'PrayerTimes',
-  companyName: 'Garden Coder',
+  companyName: 'Cogtea',
   submitURL: 'https://webhook.site/d12acb58-e406-4dfd-a10b-98124bbc1977',
   uploadToServer: true
 });

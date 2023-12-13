@@ -3,13 +3,15 @@
 </template>
 
 <script>
-const settings = require('electron-settings');
 var defaults = require('../utilities/Default.js');
+
+const Store = window.electron.store;
 export default {
   data:function () {
     return {
-      city: settings.get('city', defaults.city)
+      city: Store.get('city', defaults.city)
     }
   }
 }
 </script>
+<style lang="css" scoped></style>

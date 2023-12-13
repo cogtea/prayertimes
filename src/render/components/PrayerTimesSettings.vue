@@ -109,22 +109,22 @@
   </div>
 </template>
 <script>
-const settings = require('electron-settings');
-const {ipcRenderer} = require('electron');
-var defaults = require('../utilities/Default.js');
-const remote = require('electron').remote;
+import defaults from '../utilities/Default';
+import eventBus from '../utilities/EventBus.js';
+const Store = window.electron.store;
+
 export default{
   data: function () {
      return {
        id: null,
-       city: settings.get('city',defaults.city),
-       latitude: settings.get('latitude',defaults.latitude),
-       longitude: settings.get('longitude',defaults.longitude),
-       timeZone: settings.get('timeZone',defaults.timeZone),
-       calculationMethod: settings.get('calculationMethod',defaults.calculationMethod),
-       dayTimeSave: settings.get('dayTimeSave',defaults.dayTimeSave) == "1",
-       asrCalculation: settings.get('asrCalculation',defaults.asrCalculation),
-       language: settings.get('language','en'),
+       city: Store.get('city',defaults.city),
+       latitude: Store.get('latitude',defaults.latitude),
+       longitude: Store.get('longitude',defaults.longitude),
+       timeZone: Store.get('timeZone',defaults.timeZone),
+       calculationMethod: Store.get('calculationMethod',defaults.calculationMethod),
+       dayTimeSave: Store.get('dayTimeSave',defaults.dayTimeSave) == "1",
+       asrCalculation: Store.get('asrCalculation',defaults.asrCalculation),
+       language: Store.get('language','en'),
        appLoader: false,
   		 options: {
           
@@ -155,20 +155,18 @@ export default{
     },
     updateSettings: function () {
       var self = this;
-      settings.set('latitude',this.latitude);
-      settings.set('longitude',this.longitude);
-      settings.set('timeZone',this.timeZone);
-      settings.set('calculationMethod',this.calculationMethod);
-      settings.set('dayTimeSave',this.dayTimeSave?"1":"0");
-      settings.set('asrCalculation',this.asrCalculation);
-      settings.set('language',this.language);
-      settings.set('city',this.city);
+      Store.set('latitude',this.latitude);
+      Store.set('longitude',this.longitude);
+      Store.set('timeZone',this.timeZone);
+      Store.set('calculationMethod',this.calculationMethod);
+      Store.set('dayTimeSave',this.dayTimeSave?"1":"0");
+      Store.set('asrCalculation',this.asrCalculation);
+      Store.set('language',this.language);
+      Store.set('city',this.city);
       
-      // We should not use it, cause no it is a single desktop window
-      ipcRenderer.send('events-channels', 'updateSettings');
+      eventBus.emit('updateSettings', 'ok');
       
       setTimeout(function () {
-        // wait for lanuage settings to be updated :)
         self.$ui.notification({
             message: self.$t('messages.update_settings'),
             status: 'success',

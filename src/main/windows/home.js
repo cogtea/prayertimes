@@ -1,20 +1,17 @@
 const {app, ipcMain, BrowserWindow, Tray, session} = require('electron');
 const path = require('path');
 const url = require('url');
-const settings = require('electron-settings');
 const Positioner = require('electron-positioner');
-
 module.exports = {
   createWindow: function () {
     homePage = new BrowserWindow({
-        width: 560,
-        height: 420,
-        minWidth: 560,
-        minHeight: 420,
+        width: 640,
+        height: 412,
+        minWidth: 640,
+        minHeight: 412,
         icon: path.join(__dirname, '../../assets/icons/png/64x64.png'),
         webPreferences: {
-          nodeIntegration: true //This window has node integration enabled by default. In Electron 5.0.0, node integration will be disabled by default. To prepare for this change, set {nodeIntegration: true} in the webPreferences for this window, or ensure that this window does not rely on node integration and set {nodeIntegration: false}.
-
+          preload: path.join(__dirname, '../preload.js'),
         }
       })
     
