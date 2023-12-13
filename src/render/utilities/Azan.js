@@ -1,4 +1,3 @@
-// src/render/utilities/Azan.js
 import defaults from './Default';
 import prayTimes from './PrayerTimes';
 

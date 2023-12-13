@@ -27,7 +27,7 @@ export default{
   },
   created: function () {
     this.setNextAzan();
-    this.setIntervalNextAzan()
+    this.setIntervalNextAzan();
   },
   beforeDestroy: function () {
     if (this.azanNextCheck) {

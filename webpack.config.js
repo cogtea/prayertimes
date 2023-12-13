@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -30,9 +29,9 @@ module.exports = {
        { test: /\.css$/, use: [ process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader']},
        { test: /\.less$/,use: [process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
 			 { test: /\.vue$/, loader: 'vue-loader', options: { loaders: {} /* other vue-loader options go here */}},
-       { test: /\.(png|jpg|gif|svg)$/, type: 'asset/resource', generator: { filename: 'assets/imgs/[name].[ext]' }},
-       { test: /\.mp3$/, type: 'asset/resource', generator: { filename: 'assets/sound/[name].[ext]'}},
-       { test: /\.(woff|woff2|eot|ttf|svg)$/, type: 'asset/resource', generator: { filename: 'assets/fonts/[name].[ext]' }}
+       { test: /\.(png|jpg|gif|svg)$/, type: 'asset/resource', generator: { filename: 'assets/imgs/[name][ext]' }},
+       { test: /\.mp3$/, type: 'asset/resource', generator: { filename: 'assets/sound/[name][ext]'}},
+       { test: /\.(woff|woff2|eot|ttf|svg)$/, type: 'asset/resource', generator: { filename: 'assets/fonts/[name][ext]' }},
      ]
   },
   plugins: [

@@ -11,7 +11,7 @@ module.exports = {
         minHeight: 420,
         icon: path.join(__dirname, '../../assets/icons/png/64x64.png'),
         webPreferences: {
-          preload: path.join(__dirname, '../preload.js')
+          preload: path.join(__dirname, '../preload.js'),
         }
       })
     
@@ -23,7 +23,7 @@ module.exports = {
     }))
 
     // Open the DevTools.
-    if(process.env.DEBUG == 'true')
+    //if(process.env.DEBUG == 'true')
        homePage.webContents.openDevTools();
 
     // Emitted when the window is closed.

@@ -109,9 +109,8 @@
   </div>
 </template>
 <script>
-// import ipcRenderer from 'electron';
 import defaults from '../utilities/Default';
-
+import eventBus from '../utilities/EventBus.js';
 const Store = window.electron.store;
 
 export default{
@@ -165,13 +164,11 @@ export default{
       Store.set('language',this.language);
       Store.set('city',this.city);
       
-      // We should not use it, cause no it is a single desktop window
-      // ipcRenderer.send('events-channels', 'updateSettings');
+      eventBus.emit('updateSettings', 'ok');
       
       setTimeout(function () {
-        // wait for lanuage Store to be updated :)
         self.$ui.notification({
-            message: self.$t('messages.update_Store'),
+            message: self.$t('messages.update_settings'),
             status: 'success',
             pos: 'bottom-center',
             timeout: 1000

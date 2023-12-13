@@ -1,10 +1,8 @@
 module.exports = {
-  font_family: 'ar.ttf',
   app_name: 'مواقيت الصلاة',
   timing: 'المواقيت',
   settings: 'الاعدادات',
   about: 'عن التطبيق',
-  dir: 'rtl',
   fajr: 'فجر',
   imsak: 'امساك',
   dhuhr: 'الظهر',

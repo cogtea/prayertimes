@@ -1,10 +1,11 @@
-import { createApp } from 'vue';
+import { createApp, onMounted, ref } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { createI18n } from 'vue-i18n';
+import { createI18n, useI18n } from 'vue-i18n';
 
 import Azan from './utilities/Azan.js';
 import azanSound from '../assets/sound/azan.mp3';
-import localization from '../assets/i18n/en';
+import en from '../assets/i18n/en';
+import ar from '../assets/i18n/ar';
 
 import Home from './pages/Home.vue';
 import Settings from './pages/Settings.vue';
@@ -24,12 +25,12 @@ import Icons from 'uikit/dist/js/uikit-icons';
 
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 
-// Instance
+import eventBus from './utilities/EventBus.js';
+
 const app = createApp({
     setup() {
-        // Use ref for reactive properties
-        const prays = Azan.getPrays();
-        const notifications = Azan.loadNotifications();
+        const prays = ref(Azan.getPrays());
+        const notifications = ref(Azan.loadNotifications());
         let azanTimer = null;
         let azanAudio = null;
         let azanNext = null;
@@ -69,11 +70,16 @@ const app = createApp({
             }, 60 * 1000);
         };
 
-        // Use onMounted for lifecycle hooks
-        // onMounted(() => {
-        //     // Other initialization logic
-        //     // checkForAzanNotification();
-        // });
+        onMounted(() => {
+            checkForAzanNotification();
+            eventBus.on('updateSettings', () => {
+                // Reload prays
+                prays.value = Azan.getPrays();
+
+                // Reload language
+                setI18nLanguage();
+            });
+        });
 
         return {
             prays,
@@ -82,7 +88,7 @@ const app = createApp({
             getNextAzan,
             checkForAzanNotification,
         };
-    },
+    }
 });
 
 // Register components globally
@@ -108,17 +114,43 @@ const router = createRouter({
 app.use(router);
 
 // Locale
-var loadedLanguages = ['en'];
-var messages = {
-    en: localization,
-};
 const i18n = createI18n({
     locale: 'en',
     messages: {
-        en: localization,
+        en: en,
+        ar: ar,
     },
 });
 app.use(i18n);
+
+function setI18nLanguage() {
+    const Store = window.electron.store;
+    let lang = Store.get("language");
+
+    var fontPath, direction;
+    if (lang == 'ar') {
+        fontPath = "../../assets/fonts/ar.ttf";
+        direction = 'rtl';
+    } else {
+        fontPath = "../../assets/fonts/en.ttf";
+        direction = 'ltr';
+    }
+
+    i18n.value = lang
+    document.querySelector('html').setAttribute('lang', lang);
+    if (document.getElementsByTagName('link').length > 0) {
+        if (document.getElementsByTagName('link')[getMainCssLinkIndex()] != null) {
+            document.getElementsByTagName('link')[getMainCssLinkIndex()].href = document.getElementsByTagName('link')[getMainCssLinkIndex()].href.replace(document.querySelector('html').getAttribute('dir'), direction);
+        }
+    }
+    document.querySelector('html').setAttribute('dir', direction);
+
+    var fontFamily = 'Font-' + lang;
+    var font = new FontFace(fontFamily, 'url(' + fontPath + ')');
+    document.fonts.add(font);
+    document.body.style.fontFamily = fontFamily;
+    return lang;
+}
 
 // UIKIT
 UIkit.use(Icons);
