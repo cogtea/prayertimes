@@ -1,4 +1,4 @@
-const {app, Menu} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 
 const template = [
   {
@@ -7,6 +7,24 @@ const template = [
       {role: 'minimize'},
       {role: 'close'}
     ]
+  },
+  {
+    label: 'Developer Tools',
+    submenu: [
+      {
+        label: 'Toggle Developer Tools',
+        accelerator: 'CmdOrCtrl+Shift+I',
+        click: function () {
+          // Get the currently focused window
+          const focusedWindow = BrowserWindow.getFocusedWindow();
+
+          // Check if there is a focused window and if it has a webContents
+          if (focusedWindow && focusedWindow.webContents) {
+            focusedWindow.webContents.toggleDevTools();
+          }
+        },
+      },
+    ],
   },
   {
     role: 'help',

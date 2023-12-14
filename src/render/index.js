@@ -76,7 +76,7 @@ const app = createApp({
         };
 
         const setI18nLanguage = function() {
-            let lang = Store.get("language");
+            let lang = Store.get("language", "en");
 
             var fontPath, direction;
             if (lang == 'ar') {
@@ -86,7 +86,7 @@ const app = createApp({
                 fontPath = enFont;
                 direction = 'ltr';
             }
-
+            
             i18n.global.locale = lang
             document.querySelector('html').setAttribute('lang', lang);
             if (document.getElementsByTagName('link').length > 0) {
