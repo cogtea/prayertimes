@@ -1,6 +1,6 @@
 {
   "name": "prayertimes",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Prayertimes desktop application",
   "main": "dist/main/index.js",
   "postinstall": "electron-builder install-app-deps",
@@ -9,7 +9,7 @@
     "webpack": "webpack",
     "watch": "webpack --watch",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder --publish always"
   },
   "build": {
     "appId": "com.cogtea.prayertimes",
