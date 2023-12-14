@@ -1,5 +1,5 @@
 # PrayerTimes
-![Build PrayerTimes Electron](https://github.com/cogtea/prayertimes/workflows/Build%20PrayerTimes%20Electron/badge.svg?branch=master)
+![Build PrayerTimes Electron](https://github.com/cogtea/prayertimes/workflows/Build%20PrayerTimes%20Electron/badge.svg)
 
 Desktop application built with electronjs.
 
