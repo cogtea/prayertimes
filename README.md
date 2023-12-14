@@ -9,11 +9,11 @@ Desktop application built with electronjs.
 
 ### macOS
 
-Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.8/PrayerTimes-1.0.8.dmg)
+Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.9/PrayerTimes-1.0.9.dmg)
 
 ### windows
 
-Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.8/PrayerTimes.Setup.1.0.8.exe)
+Download [the latest release](https://github.com/cogtea/prayertimes/releases/download/1.0.9/PrayerTimes.Setup.1.0.9.exe)
 
 ### linux
 

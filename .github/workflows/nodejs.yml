@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Use Node.js 21.4.0
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: '21.4.0'
 
@@ -38,11 +38,17 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run dist
 
-      - name: Cleanup artifacts
+      - name: Cleanup MacOS Artifacts
+        if: matrix.os == 'macOS-latest'
         run: |
           mkdir artifacts
           mv dist/*.dmg artifacts || true
-        if: matrix.os == 'macOS-latest' || matrix.os == 'windows-latest'
+
+      - name: Cleanup Win artifacts 
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir artifacts
+          mv dist/*.exe artifacts
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
