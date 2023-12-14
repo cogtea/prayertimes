@@ -75,6 +75,15 @@ const app = createApp({
             }, 60 * 1000);
         };
 
+        const getMainCssLinkIndex = function() {
+            var elements = document.getElementsByTagName('link');
+            for (var i = 0, length = elements.length; i < length; i++) {
+              if (elements[i].href.indexOf('assets/css/app') >= 0) {
+                  return i;
+              }
+            }
+        };
+
         const setI18nLanguage = function() {
             let lang = Store.get("language", "en");
 

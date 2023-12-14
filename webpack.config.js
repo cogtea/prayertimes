@@ -26,8 +26,8 @@ module.exports = {
   },
   module: {
      rules: [
-       { test: /\.css$/, use: [ process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader']},
-       { test: /\.less$/,use: [process.env.NODE_ENV !== 'production'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
+       { test: /\.css$/, use: [ process.env.NODE_ENV == 'development'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader']},
+       { test: /\.less$/,use: [process.env.NODE_ENV == 'development'? 'vue-style-loader': MiniCssExtractPlugin.loader,'css-loader','less-loader']},
 			 { test: /\.vue$/, loader: 'vue-loader', options: { loaders: {} /* other vue-loader options go here */}},
        { test: /\.(png|jpg|gif|svg)$/, type: 'asset/resource', generator: { filename: 'assets/imgs/[name][ext]' }},
        { test: /\.mp3$/, type: 'asset/resource', generator: { filename: 'assets/sound/[name][ext]' }},
@@ -42,11 +42,17 @@ module.exports = {
             { from: 'assets/icons', to: 'assets/icons'}
         ]
       }),
-      new HtmlWebpackPlugin({template: './render/layouts/app.html', filename: 'render/layouts/app.html'}),
+      new HtmlWebpackPlugin({
+        template: './render/layouts/app.html',
+        filename: 'render/layouts/app.html',
+        inject: false,
+      }),
       new MiniCssExtractPlugin({
-          filename: 'assets/css/[name].ltr.css',
+          filename: 'assets/css/app.ltr.css',
         }),
-      new RtlCssPlugin('assets/css/[name].rtl.css'),
+      new RtlCssPlugin({
+          filename: 'assets/css/app.rtl.css',
+      }),
       new Dotenv({
         systemvars: true,
       }),
