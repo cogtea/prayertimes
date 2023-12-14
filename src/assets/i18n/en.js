@@ -1,5 +1,9 @@
+
 module.exports = {
   app_name: 'PrayerTimes',
+  about_description: 'Welcome to PrayerTimes, your companion for accurate and timely prayer times information. This application is designed to provide Muslim users with the convenience of accessing prayer times right from their desktop.',
+  more_details: 'For more details and updates, please visit our',
+  github_link: 'https://github.com/cogtea/prayertimes',
   time_to_pray: 'Time to Pray',
   timing: 'Times',
   settings: 'Settings',

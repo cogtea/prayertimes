@@ -5,10 +5,10 @@ const Positioner = require('electron-positioner');
 module.exports = {
   createWindow: function () {
     homePage = new BrowserWindow({
-        width: 640,
-        height: 412,
-        minWidth: 640,
-        minHeight: 412,
+        width: 540,
+        height: 400,
+        minWidth: 540,
+        minHeight: 400,
         icon: path.join(__dirname, '../../assets/icons/png/64x64.png'),
         webPreferences: {
           preload: path.join(__dirname, '../preload.js'),

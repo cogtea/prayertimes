@@ -1,25 +1,41 @@
+/* Set the height of the body to 100% of the viewport height */
 body {
   height: 100vh;
 }
 
+/* Set the height of elements with the class uk-height-1-1 to 100% of the viewport height */
 .uk-height-1-1 {
   height: 100vh;
 }
 
+/* Style for the UK spinner circle with the color #a5d6a7 */
 .uk-spinner circle {
   color: #a5d6a7;
 }
 
+/* Style for the 'next' class with a gradient background using the color #a5d6a7 and adjusted striped pattern background */
 .next {
-  background-color: #a5d6a750;
+  background-color: #a5d6a750; /* Color with 50% opacity */
   background-image:
     linear-gradient(67.5deg, #a5d6a7 10%, transparent 10%),
     linear-gradient(157.5deg, #a5d6a7 10%, transparent 10%),
-    /* ... (rest of your gradients) ... */
+    linear-gradient(67.5deg, transparent 90%, #a5d6a7 90%),
+    linear-gradient(157.5deg, transparent 90%, #a5d6a7 90%),
+    linear-gradient(22.5deg, #a5d6a7 10%, transparent 10%),
+    linear-gradient(112.5deg, #a5d6a7 10%, transparent 10%),
+    linear-gradient(22.5deg, transparent 90%, #a5d6a7 90%),
+    linear-gradient(112.5deg, transparent 90%, #a5d6a7 90%),
+    linear-gradient(22.5deg, transparent 33%, #ffffff 33%, #ffffff 36%, transparent 36%, transparent 64%, #ffffff 64%, #ffffff 67%, transparent 67%),
+    linear-gradient(-22.5deg, transparent 33%, #ffffff 33%, #ffffff 36%, transparent 36%, transparent 64%, #ffffff 64%, #ffffff 67%, transparent 67%),
+    linear-gradient(112.5deg, transparent 33%, #ffffff 33%, #ffffff 36%, transparent 36%, transparent 64%, #ffffff 64%, #ffffff 67%, transparent 67%),
     linear-gradient(-112.5deg, transparent 33%, #ffffff 33%, #ffffff 36%, transparent 36%, transparent 64%, #ffffff 64%, #ffffff 67%, transparent 67%);
-  background-size: 200px 200px;
-  background-position:
+  background-size: 250px 250px;
+  background-position: 
     -100px 150px, -150px 150px, -150px 100px, -100px 100px,
     -150px 100px, -100px 100px, -100px 150px, -150px 150px,
     0 0, 0 0, 0 0, 0 0;
+  /* Additional styles for better readability and aesthetics */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
