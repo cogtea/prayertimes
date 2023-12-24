@@ -1,6 +1,6 @@
 {
   "name": "prayertimes",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "Prayertimes desktop application",
   "main": "dist/main/index.js",
   "postinstall": "electron-builder install-app-deps",
