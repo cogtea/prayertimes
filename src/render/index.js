@@ -28,8 +28,13 @@ import Icons from 'uikit/dist/js/uikit-icons';
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 
 import eventBus from './utilities/EventBus.js';
-
 const Store = window.electron.store;
+
+import * as Sentry from "@sentry/electron/renderer";
+
+Sentry.init({
+    dsn: 'https://feec67241bf837a3c4b26daefd57630a@o4506450306990080.ingest.sentry.io/4506450308956160',
+  });
 
 const app = createApp({
     setup() {

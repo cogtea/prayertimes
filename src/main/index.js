@@ -1,17 +1,12 @@
-const {app, BrowserWindow, Notification, session, crashReporter} = require('electron')
-const path = require('path')
-const url = require('url')
+const {app} = require('electron')
 const HomePage =require('./windows/home.js');
-const remote = require('electron').remote;
-require('dotenv').config();
-// Don't crash please
-crashReporter.start({
-  productName: 'PrayerTimes',
-  companyName: 'Cogtea',
-  submitURL: 'https://webhook.site/d12acb58-e406-4dfd-a10b-98124bbc1977',
-  uploadToServer: true
+
+const Sentry = require("@sentry/electron/main");
+Sentry.init({
+  dsn: 'https://feec67241bf837a3c4b26daefd57630a@o4506450306990080.ingest.sentry.io/4506450308956160',
 });
-// process.crash(); // Testing Crash
+
+require('dotenv').config();
 
 // Autoplay Policy 
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
